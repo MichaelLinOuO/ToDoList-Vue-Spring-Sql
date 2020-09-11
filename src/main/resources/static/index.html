@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+    <div id="ass2" class="center">
+        <div class="title" id="test" v-bind:class="completed">To Do list</div>
+        <div>  </div>
+        <div class="add">
+            <input class="edit" type="text" id="additem" />
+            <button v-on:click='add()'>Add</button>
+
+
+        </div>
+
+        <ul class="todo-list">
+            <li v-for="(todo,i) in filteredTodos"
+                class="todo"
+                :key="todo.id"
+                :class="{completed: todo.completed}">
+
+
+                <div @dblclick="todo.star=true" class="animation">
+                    <img v-if="todo.star" src="star.jpg" class="star" display: inline @click="todo.star=false" />
+                    <input type="checkbox" v-model="todo.completed" style="display: inline">
+
+                    <input v-if="todo.edit"
+                           v-model="todo.todo"
+                           style="display: inline"
+                           @blur="todo.edit = false; $emit('update')"
+                           @keyup.enter="todo.edit=false; $emit('update')"
+                           v-focus>
+                    <div v-else style="display: inline">
+                        <label @click="todo.edit = true;" class="todotitle"> {{todo.todo}} </label>
+                    </div>
+
+                    <button class="remove" v-on:click='remove(todo) ' style="display: inline"> x</button>
+                </div>
+
+
+
+            </li>
+        </ul>
+        <div class="control">
+            <button class="buttonC" @click="clearall()">clear all</button>
+            <button class="buttonC" @click="clearcompleted()">clear completed</button>
+            <button class="buttonC" @click="all()">All</button>
+              <div class="pwdtext">Submit password retrieve record(1234default)</div>
+            <div class="startext">Star item by double click row</div>
+        </div>
+
+
+
+
+        <div>
+
+
+            <label for="pwd">Password:</label>
+            <input type="password" id="pwd" name="pwd" minlength="4">
+            <button class="buttonC" @click="checkpwd()">submit</button>
+
+        </div>
+    </div>
+
+   
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.17/vue.min.js'></script>
+    <script src="./main.js"></script>
+</body>
+</html>
